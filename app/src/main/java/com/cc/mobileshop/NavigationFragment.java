@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -12,12 +13,22 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import butterknife.BindView;
+import butterknife.OnClick;
+
 public class NavigationFragment extends Fragment {
 
-    private ImageView iv_home;
-    private ImageView iv_category;
-    private ImageView iv_cart;
-    private ImageView iv_personal;
+    @BindView(R.id.fl_tag)
+    FrameLayout fl_tag;
+    @BindView(R.id.iv_home)
+    ImageView iv_home;
+    @BindView(R.id.iv_category)
+    ImageView iv_category;
+    @BindView(R.id.iv_cart)
+    ImageView iv_cart;
+    @BindView(R.id.iv_personal)
+    ImageView iv_personal;
+
 
     @Nullable
     @Override
@@ -72,53 +83,57 @@ public class NavigationFragment extends Fragment {
             }
         });
     }
+
     private HomeFragment homeFragment;
     private CategoryFragment categoryFragment;
     private CartFragment cartFragment;
     private PersonalFragment personalFragment;
 
     private void showFragment(ImageView icon) {
-       FragmentManager  manager= getFragmentManager();
-        FragmentTransaction transaction= manager.beginTransaction();
-        if (homeFragment!=null){
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        if (homeFragment != null) {
             transaction.hide(homeFragment);
-        }if (categoryFragment!=null){
+        }
+        if (categoryFragment != null) {
             transaction.hide(categoryFragment
             );
-        }if (cartFragment!=null){
+        }
+        if (cartFragment != null) {
             transaction.hide(cartFragment);
-        }if (personalFragment!=null){
-            transaction.hide(personalFragment );
+        }
+        if (personalFragment != null) {
+            transaction.hide(personalFragment);
         }
 
 
         if (icon.getId() == R.id.iv_home) {
-            if (homeFragment==null){
-                homeFragment=new HomeFragment();
-                transaction.add(R.id.fl_tag,homeFragment);
-            }else {
+            if (homeFragment == null) {
+                homeFragment = new HomeFragment();
+                transaction.add(R.id.fl_tag, homeFragment);
+            } else {
                 transaction.show(homeFragment);
             }
 
         } else if (icon.getId() == R.id.iv_category) {
-            if (categoryFragment==null){
-                        categoryFragment=new CategoryFragment();
-                transaction.add(R.id.fl_tag,categoryFragment);
-            }else {
+            if (categoryFragment == null) {
+                categoryFragment = new CategoryFragment();
+                transaction.add(R.id.fl_tag, categoryFragment);
+            } else {
                 transaction.show(categoryFragment);
             }
         } else if (icon.getId() == R.id.iv_cart) {
-            if (cartFragment==null){
-                cartFragment=new CartFragment();
-                transaction.add(R.id.fl_tag,cartFragment);
-            }else {
+            if (cartFragment == null) {
+                cartFragment = new CartFragment();
+                transaction.add(R.id.fl_tag, cartFragment);
+            } else {
                 transaction.show(cartFragment);
             }
         } else if (icon.getId() == R.id.iv_personal) {
-            if (personalFragment==null){
-                personalFragment=new PersonalFragment();
-                transaction.add(R.id.fl_tag,personalFragment);
-            }else {
+            if (personalFragment == null) {
+                personalFragment = new PersonalFragment();
+                transaction.add(R.id.fl_tag, personalFragment);
+            } else {
                 transaction.show(personalFragment);
             }
         }
@@ -143,5 +158,20 @@ public class NavigationFragment extends Fragment {
     }
 
 
+    @OnClick({R.id.fl_tag, R.id.iv_home, R.id.iv_category, R.id.iv_cart, R.id.iv_personal})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.fl_tag:
+                break;
+            case R.id.iv_home:
+                break;
+            case R.id.iv_category:
+                break;
+            case R.id.iv_cart:
+                break;
+            case R.id.iv_personal:
+                break;
+        }
+    }
 }
 
