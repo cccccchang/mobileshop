@@ -2,6 +2,8 @@ package com.cc.mobileshop;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Annotation;
+import android.text.Layout;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -11,19 +13,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class SplashActivity extends AppCompatActivity {
-    @BindView(R.id.iv_loading)
-    ImageView iv_loading;
+public class SplashActivity extends AppCompatActivity { @BindView(R.id.iv_loading)
+ImageView loadingView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
-        ImageView loadingview = findViewById(R.id.iv_loading);
-        Animation animation = AnimationUtils.loadAnimation(SplashActivity.this, R.anim.splash_loading);
+
+        /*ImageView loadingView=findViewById(R.id.iv_loading);*/
+
+        Animation animation=AnimationUtils.loadAnimation(SplashActivity.this,R.anim.splash_loading);
         animation.setFillAfter(true);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -33,9 +35,10 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                Intent intent = new Intent(SplashActivity.this, AdActivity.class);
+                Intent intent=new Intent(SplashActivity.this,AdActivity.class);
                 startActivity(intent);
                 finish();
+
             }
 
             @Override
@@ -43,10 +46,7 @@ public class SplashActivity extends AppCompatActivity {
 
             }
         });
-        loadingview.startAnimation(animation);
-    }
+        loadingView.startAnimation(animation);
 
-    @OnClick(R.id.iv_loading)
-    public void onViewClicked() {
     }
 }

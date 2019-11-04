@@ -1,10 +1,8 @@
 package com.cc.mobileshop;
 
-import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.cc.mobileshop.R;
+import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
 

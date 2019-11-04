@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,59 +16,92 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AdActivity extends AppCompatActivity {
-    @BindView(R.id.iv_count)
-    TextView tv_acount;
 
+    @BindView(R.id.tv_count)
+    TextView tv_count;
+
+    boolean isstop = false;
     Thread thread;
 
-    // boolean isStop=false;
+    Handler handler = new Handler();
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ad);
-        //绑定activi
+
         ButterKnife.bind(this);
 
-        tv_acount.setOnClickListener(new View.OnClickListener() {
+        tv_count.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AdActivity.this,MainActivity.class));
-                /*if(thread!=null) {
+                if (thread != null) {
                     thread.stop();
-                }*/
-                //isStop=true;
+                }
+                isstop = true;
+                Intent intent = new Intent(AdActivity.this, MainActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
+       /* tv_count.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handler.removeCallbacks(task);
+                Intent intent=new Intent(AdActivity.this,MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });*/
 
-        thread =new Thread(new Runnable() {
+
+        /*new Thread(){
             @Override
             public void run() {
-                for (int i=5;i>=0;i--){
-                    /*if(isStop){
+                super.run();
+            }
+        }.start();
+        */
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 5; i >= 0; i--) {
+                    if (isstop) {
                         return;
-                    }*/
+                    }
                     SystemClock.sleep(1000);
-                    final int count=i;
-                    runOnUiThread(new Runnable() {
+
+                    final int count = i;
+                     /*runOnUiThread(new Runnable() {
+                         @Override
+                         public void run() {
+                             tv_count.setText("点击跳转 "+count);
+                         }
+                     });*/
+                    handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            tv_acount.setText("点击跳转 "+count);
+                            tv_count.setText("点击跳转 " + count);
                         }
                     });
                 }
-
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        startActivity(new Intent(AdActivity.this,MainActivity.class));
+                        Intent intent = new Intent(AdActivity.this, MainActivity.class);
+                        startActivity(intent);
+
                         finish();
                     }
                 });
-
             }
-        });
-        thread.start();
+        }).start();
+
+
     }
 
+    @OnClick(R.id.tv_count)
+    public void onViewClicked() {
+    }
 }
